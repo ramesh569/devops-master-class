@@ -24,7 +24,7 @@ steps:
     sonarQubeRunAnalysis: false
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/'
     ArtifactName: 'Hello-World'
     publishLocation: 'Container'
 - task: Docker@2
