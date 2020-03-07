@@ -19,7 +19,7 @@ steps:
   displayName: 'Run a multi-line script'
 - task: Maven@3
   inputs:
-    mavenPomFile: '/azure-devops/01-hello-world-rest-api/pom.xml'
+    mavenPomFile: '\azure-devops\01-hello-world-rest-api\pom.xml'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
