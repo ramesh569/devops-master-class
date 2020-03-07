@@ -69,7 +69,7 @@
 				</executions>
 				<configuration>
 					<repository>in28min/${project.name}</repository>
-					<tag>${project.version}</tag>
+					<tag>helloworldimage</tag>
 					<skipDockerInfo>true</skipDockerInfo>
 				</configuration>
 			</plugin>
