@@ -12,7 +12,7 @@ pool:
 steps:
 - task: Maven@3
   inputs:
-    mavenPomFile: '"azure-devops/01-hello-world-rest-api/pom.xml"'
+    mavenPomFile: '"ramesh569.devops-master-class/azure-devops/01-hello-world-rest-api/pom.xml"'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
