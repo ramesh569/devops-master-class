@@ -30,5 +30,6 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'dockerregistry'
+    repository: 'azuredevops'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
