@@ -27,4 +27,8 @@ steps:
     PathtoPublish: '$(System.DefaultWorkingDirectory)'
     ArtifactName: 'Hello-World'
     publishLocation: 'Container'
-    
+- task: Docker@2
+  inputs:
+    containerRegistry: 'dockerregistry'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
