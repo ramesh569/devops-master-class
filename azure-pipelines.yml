@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 stages:
-- stage: maven build 
+- stage: mavenbuild 
   jobs:
   - job:    
     steps:  
@@ -26,8 +26,8 @@ stages:
        mavenAuthenticateFeed: false
        effectivePomSkip: false
        sonarQubeRunAnalysis: false
-- stage: publish artifact
-  dependsOn: maven build
+- stage: publishartifact
+  dependsOn: mavenbuild
   jobs:
   - job:         
     steps:
@@ -36,8 +36,8 @@ stages:
          PathtoPublish: '$(System.DefaultWorkingDirectory)/'
          ArtifactName: 'Hello-World'
          publishLocation: 'Container'
-- stage: create docker image and push
-  dependsOn: publish artifact
+- stage: createdockerimageandpush
+  dependsOn: publishartifact
   jobs:
   - job: 
     steps:
