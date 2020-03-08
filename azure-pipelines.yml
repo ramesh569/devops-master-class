@@ -33,7 +33,7 @@ stages:
     steps:
      - task: PublishBuildArtifacts@1
        inputs:
-         PathtoPublish: '$(System.DefaultWorkingDirectory)/'
+         PathtoPublish: '$(System.DefaultWorkingDirectory)'
          ArtifactName: 'Hello-World'
          publishLocation: 'Container'
 - stage: createdockerimageandpush
