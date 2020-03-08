@@ -9,27 +9,43 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: '$(system.defaultWorkingDirectory)/azure-devops/01-hello-world-rest-api/pom.xml'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    mavenVersionOption: 'Default'
-    mavenOptions: '-Xmx3072m'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/'
-    ArtifactName: 'Hello-World'
-    publishLocation: 'Container'
-- task: Docker@2
-  inputs:
-    containerRegistry: 'dockerregistr'
-    repository: 'ramesh111/azuredevops'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+stages:
+- stage: maven build 
+  jobs:
+  - job:    
+    steps:  
+    - task: Maven@3
+      inputs:
+       mavenPomFile: '$(system.defaultWorkingDirectory)/azure-devops/01-hello-world-rest-api/pom.xml'
+       publishJUnitResults: true
+       testResultsFiles: '**/surefire-reports/TEST-*.xml'
+       javaHomeOption: 'JDKVersion'
+       jdkVersionOption: '1.8'
+       mavenVersionOption: 'Default'
+       mavenOptions: '-Xmx3072m'
+       mavenAuthenticateFeed: false
+       effectivePomSkip: false
+       sonarQubeRunAnalysis: false
+- stage: publish artifact
+  dependsOn: maven build
+  jobs:
+  - job:         
+    steps:
+     - task: PublishBuildArtifacts@1
+       inputs:
+         PathtoPublish: '$(System.DefaultWorkingDirectory)/'
+         ArtifactName: 'Hello-World'
+         publishLocation: 'Container'
+- stage: create docker image and push
+  dependsOn: publish artifact
+  jobs:
+  - job: 
+    steps:
+        - task: Docker@2
+          inputs:
+            containerRegistry: 'dockerregistr'
+            repository: 'ramesh111/azuredevops'
+            command: 'buildAndPush'
+            Dockerfile: '**/Dockerfile'
+
+
