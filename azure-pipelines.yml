@@ -41,6 +41,12 @@ stages:
   jobs:
   - job: 
     steps:
+        - task: DownloadBuildArtifacts@0
+          inputs:
+            buildType: 'current'
+            downloadType: 'single'
+            artifactName: 'Hello-world'
+            downloadPath: '$(System.ArtifactsDirectory)'
         - task: Docker@2
           inputs:
             containerRegistry: 'dockerregistr'
