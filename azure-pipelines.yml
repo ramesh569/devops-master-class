@@ -47,6 +47,12 @@ stages:
          buildType: 'current'
          artifactName: 'helloworld'
          targetPath: '$(system.defaultWorkingDirectory)/azure-devops/01-hello-world-rest-api/'
+     - task: Docker@2
+       inputs:
+            containerRegistry: 'dockerdockerhub'
+            repository: 'ramesh111/azuredevops'
+            command: 'buildAndPush'
+            Dockerfile: '$(system.defaultWorkingDirectory)/azure-devops/01-hello-world-rest-api/Dockerfile'
          
     
 
