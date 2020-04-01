@@ -31,27 +31,22 @@ stages:
   jobs:
   - job:         
     steps:
-     - task: PublishBuildArtifacts@1
-       inputs:
-         PathtoPublish: '$(System.DefaultWorkingDirectory)'
-         ArtifactName: 'Hello-World'
-         publishLocation: 'Container'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(system.defaultWorkingDirectory)/azure-devops/01-hello-world-rest-api/'
+        artifact: 'helloworld'
+        publishLocation: 'pipeline'
+         
 - stage: createdockerimageandpush
   dependsOn: publishartifact
   jobs:
   - job: 
     steps:
-        - task: DownloadBuildArtifacts@0
-          inputs:
-            buildType: 'current'
-            downloadType: 'single'
-            artifactName: 'Hello-world'
-            downloadPath: '$(system.defaultWorkingDirectory)/azure-devops/01-hello-world-rest-api/'
-        - task: Docker@2
-          inputs:
-            containerRegistry: 'dockerdockerhub'
-            repository: 'ramesh111/azuredevops'
-            command: 'buildAndPush'
-            Dockerfile: '**/Dockerfile'
-
+     - task: DownloadPipelineArtifact@2
+       inputs:
+         buildType: 'current'
+         artifactName: 'helloworld'
+         targetPath: '$(system.defaultWorkingDirectory)/azure-devops/01-hello-world-rest-api/'
+         
+    
 
