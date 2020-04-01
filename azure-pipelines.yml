@@ -46,7 +46,7 @@ stages:
             buildType: 'current'
             downloadType: 'single'
             artifactName: 'Hello-world'
-            downloadPath: '$(System.ArtifactsDirectory)'
+            downloadPath: '$(system.defaultWorkingDirectory)/azure-devops/01-hello-world-rest-api/'
         - task: Docker@2
           inputs:
             containerRegistry: 'dockerregistr'
